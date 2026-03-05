@@ -53,6 +53,15 @@ export const config = {
     process.env.OPENCLAW_SOUL_TEMPLATES_DIR ||
     (openclawStateDir ? path.join(openclawStateDir, 'templates', 'souls') : ''),
   homeDir: os.homedir(),
+  eventLogging: {
+    vendorBaseUrl: process.env.EVENT_LOG_VENDOR_BASE_URL || '',
+    vendorTokenUrl: process.env.EVENT_LOG_VENDOR_TOKEN_URL || '',
+    vendorClientId: process.env.EVENT_LOG_VENDOR_CLIENT_ID || '',
+    vendorClientSecret: process.env.EVENT_LOG_VENDOR_CLIENT_SECRET || '',
+    vendorAudience: process.env.EVENT_LOG_VENDOR_AUDIENCE || '',
+    vendorScope: process.env.EVENT_LOG_VENDOR_SCOPE || '',
+    enabled: process.env.EVENT_LOG_VENDOR_ENABLED === '1' || process.env.EVENT_LOG_VENDOR_ENABLED === 'true',
+  },
   // Data retention (days). 0 = keep forever.
   retention: {
     activities: Number(process.env.MC_RETAIN_ACTIVITIES_DAYS || '90'),

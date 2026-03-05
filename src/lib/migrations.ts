@@ -753,6 +753,29 @@ const migrations: Migration[] = [
         }
       }
     }
+  },
+  {
+    id: '025_event_logs',
+    up: (db) => {
+      db.exec(`
+        CREATE TABLE IF NOT EXISTS event_logs (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          workspace_id INTEGER NOT NULL DEFAULT 1,
+          level TEXT NOT NULL DEFAULT 'info',
+          source TEXT NOT NULL,
+          message TEXT NOT NULL,
+          detail TEXT,
+          vendor_status TEXT DEFAULT 'pending',
+          vendor_response TEXT,
+          vendor_sent_at INTEGER,
+          created_at INTEGER NOT NULL DEFAULT (unixepoch())
+        );
+        CREATE INDEX IF NOT EXISTS idx_event_logs_workspace_level ON event_logs(workspace_id, level);
+        CREATE INDEX IF NOT EXISTS idx_event_logs_source ON event_logs(source);
+        CREATE INDEX IF NOT EXISTS idx_event_logs_created_at ON event_logs(created_at);
+        CREATE INDEX IF NOT EXISTS idx_event_logs_vendor_status ON event_logs(vendor_status);
+      `)
+    }
   }
 ]
 

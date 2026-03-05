@@ -170,6 +170,13 @@ export const connectSchema = z.object({
   metadata: z.record(z.string(), z.unknown()).optional(),
 })
 
+export const createEventLogSchema = z.object({
+  level: z.enum(['info', 'warn', 'error']).default('info'),
+  source: z.string().min(1, 'Source is required').max(200),
+  message: z.string().min(1, 'Message is required').max(5000),
+  detail: z.record(z.string(), z.unknown()).optional().nullable(),
+})
+
 export const githubSyncSchema = z.object({
   action: z.enum(['sync', 'comment', 'close', 'status']),
   repo: z.string().regex(/^[^/]+\/[^/]+$/, 'Repo must be owner/repo format').optional(),
