@@ -39,3 +39,4 @@ playwright-report/
 # Claude Code context files
 CLAUDE.md
 **/CLAUDE.md
+mission-control.log
